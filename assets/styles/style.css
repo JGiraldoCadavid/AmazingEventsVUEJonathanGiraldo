@@ -63,6 +63,9 @@ footer{
     border-radius: 50%;
     transition: all 2s ease-in;
 }
+.sinResultados{
+    min-height: 477.5px;
+}
 .iconos-redes img{
     height: 5vh;
     color: white;

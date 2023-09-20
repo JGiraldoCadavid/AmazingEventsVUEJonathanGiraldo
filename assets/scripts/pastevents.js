@@ -1,31 +1,46 @@
-import {imprimirTarjetas, imprimirCajasVerificacion, filtrarCruzado} from "../modules/functions.js"
+const { createApp } = Vue
 
-let filtroEventos;
-let urlDetalles="./details.html"
-let contTarjetas=document.getElementById("contTarjetas")
-let contCajasVerificacion= document.getElementById("contCajasVerificacion");
-let entradaTexto= document.getElementById("buscador");
-let botonBusqueda= document.querySelector(".lupa")
-let urlApi='https://mindhub-xj03.onrender.com/api/amazing';
+  createApp({
+    data() {
+      return {
+        eventos: [],
+        eventosPasados: [],
+        categorias: [],
+        filtroCheck:[],
+        filtrados: [],
+        valorBusqueda: "",
+      }
+    },
 
-fetch(urlApi)
-    .then(resolve => resolve.json())
-    .then(data => {
-        let eventos=data.events
-        let datos=data
-        filtroEventos=eventos.filter(evento => datos.currentDate>evento.date)
-        let filtroCategorias= Array.from(new Set(filtroEventos.map(evento => evento.category)))
-        imprimirTarjetas(filtroEventos,contTarjetas,urlDetalles);
-        imprimirCajasVerificacion(filtroCategorias, contCajasVerificacion)
-    })
-    .catch(err => err)
+    created(){
+        fetch('https://mindhub-xj03.onrender.com/api/amazing')
+            .then(resolve => resolve.json())
+            .then(data => {
+                this.eventos=data.events
+                this.eventosPasados=this.eventos.filter(evento => data.currentDate>evento.date)
+                this.filtrados=this.eventosPasados
+                this.categorias= Array.from(new Set(this.eventosPasados.map(evento => evento.category)))    
+            })
+            .catch(err => err)
+    },
 
-botonBusqueda.addEventListener('click', () => {
-    let filtBuscador= filtrarCruzado(filtroEventos,entradaTexto)
-    imprimirTarjetas(filtBuscador,contTarjetas,urlDetalles)
-})
+    methods:{
+        filtrarPorCajasVerificacion(eventosFiltroBuscador){
+            if(this.filtroCheck.length==0){
+                return eventosFiltroBuscador;
+            }
+            return eventosFiltroBuscador.filter(evento => this.filtroCheck.includes(evento.category));
+        },
+        filtrarPorBuscador(){
+            return this.eventosPasados.filter(evento => evento.name.toLocaleLowerCase().includes(this.valorBusqueda.toLocaleLowerCase()))
+        },
 
-contCajasVerificacion.addEventListener('input', () => {
-    let filtCajasVerificacion= filtrarCruzado(filtroEventos,entradaTexto)
-    imprimirTarjetas(filtCajasVerificacion,contTarjetas,urlDetalles)
-})
+        filtrarCruzado(){
+            const filtroBuscador= this.filtrarPorBuscador();
+            const filtroCajasVerificacion= this.filtrarPorCajasVerificacion(filtroBuscador);
+            this.filtrados= filtroCajasVerificacion;
+        }
+
+    }
+
+  }).mount('#app')
