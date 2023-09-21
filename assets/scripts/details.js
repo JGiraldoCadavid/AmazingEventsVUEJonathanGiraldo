@@ -3,10 +3,10 @@ const { createApp } = Vue
   createApp({
     data() {
       return {
-        datos: null,
+        datos: [],
         parametro: null,
         idEvento: null,
-        evento: null
+        evento: {}
       }
     },
 

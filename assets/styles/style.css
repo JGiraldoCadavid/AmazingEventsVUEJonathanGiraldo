@@ -66,6 +66,9 @@ footer{
 .sinResultados{
     min-height: 477.5px;
 }
+[v-cloak] {
+    display: none;
+}
 .iconos-redes img{
     height: 5vh;
     color: white;

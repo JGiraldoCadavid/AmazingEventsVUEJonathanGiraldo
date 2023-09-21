@@ -44,11 +44,8 @@ const { createApp } = Vue
             let porcAsistenciaEstimado = totAsistenciaEstimado.map((asistenciaEstimado, indice) => ((asistenciaEstimado / capacidadTotal[indice]) * 100).toFixed(2));
             
             return [categorias, ganancias, porcAsistenciaEstimado]
-        } 
-    },
-
-    computed:{
-       calcularValoresPrimerTabla(){
+        },
+        calcularValoresPrimerTabla(){
             let arrayPorcAsistencias = this.eventosPasados.map(evento => [evento.name, ((evento.assistance / evento.capacity) * 100).toFixed(2)]).sort((evento1,evento2)=>evento2[1] - evento1[1])
             let menorAsistencia= arrayPorcAsistencias[arrayPorcAsistencias.length-1]
             let mayorAsistencia= arrayPorcAsistencias[0]
@@ -56,6 +53,6 @@ const { createApp } = Vue
           
             return [mayorAsistencia, menorAsistencia, mayorAforo]
             
-        },    
-    }
+        },
+    },
   }).mount('#app')

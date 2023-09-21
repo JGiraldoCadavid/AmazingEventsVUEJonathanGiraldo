@@ -7,7 +7,9 @@ const { createApp } = Vue
         categorias: [],
         filtroCheck:[],
         filtrados: [],
-        valorBusqueda: ""
+        valorBusqueda: "",
+        filtroBuscador:[],
+        sinRegistros:""
       }
     },
 
@@ -18,26 +20,29 @@ const { createApp } = Vue
                 this.eventos=data.events
                 this.filtrados=this.eventos
                 this.categorias= Array.from(new Set(this.eventos.map(evento => evento.category)))
+                this.sinRegistros="No information was found under those search criteria"
             })
             .catch(err => err)
     },
 
     methods:{
-        filtrarPorCajasVerificacion(eventosFiltroBuscador){
+        filtrarPorCajasVerificacion(){
             if(this.filtroCheck.length==0){
-                return eventosFiltroBuscador;
+                return this.filtroBuscador;
             }
-            return eventosFiltroBuscador.filter(evento => this.filtroCheck.includes(evento.category));
+            return this.filtroBuscador.filter(evento => this.filtroCheck.includes(evento.category));
         },
         filtrarPorBuscador(){
             return this.eventos.filter(evento => evento.name.toLocaleLowerCase().includes(this.valorBusqueda.toLocaleLowerCase()))
         },
-
         filtrarCruzado(){
-            const filtroBuscador= this.filtrarPorBuscador();
-            const filtroCajasVerificacion= this.filtrarPorCajasVerificacion(filtroBuscador);
+            this.filtroBuscador= this.filtrarPorBuscador();
+            const filtroCajasVerificacion= this.filtrarPorCajasVerificacion();
             this.filtrados= filtroCajasVerificacion;
         }
+    },
+
+    beforeUpdate(){
 
     }
 

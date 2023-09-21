@@ -94,12 +94,12 @@
               <th>Events with larger capacity</th>
           </tr>
           <tr>
-              <td class="text-center">{{calcularValoresPrimerTabla[0][0]+' - '+calcularValoresPrimerTabla[0][1]}} %</td>
-              <td class="text-center">{{calcularValoresPrimerTabla[1][0]+' - '+calcularValoresPrimerTabla[1][1]}} %</td>
-              <td class="text-center">{{calcularValoresPrimerTabla[2][0]+' - '+calcularValoresPrimerTabla[2][1]}}</td>
+              <td class="text-center">{{calcularValoresPrimerTabla()[0][0]+' - '+calcularValoresPrimerTabla()[0][1]}} %</td>
+              <td class="text-center">{{calcularValoresPrimerTabla()[1][0]+' - '+calcularValoresPrimerTabla()[1][1]}} %</td>
+              <td class="text-center">{{calcularValoresPrimerTabla()[2][0]+' - '+calcularValoresPrimerTabla()[2][1].toLocaleString()}}</td>
           </tr>
         </table>
-        <table class="table table-bordered border-primary" id="contFilas2">
+        <table class="table table-bordered border-primary">
           <tr>
             <th class="tabla-tit-principal text-center" colspan="3">Upcoming events statistics by category</th>
           </tr>
@@ -114,7 +114,7 @@
             <td>{{calcularEstadisticasEventos(eventosFuturos)[2][index]}} %</td>
           </tr>
         </table>
-        <table class="table table-bordered border-primary" id="contFilas3">
+        <table class="table table-bordered border-primary">
           <tr>
             <th class="tabla-tit-principal text-center" colspan="3">Past events statistics by category</th>
             </tr>

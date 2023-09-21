@@ -9,6 +9,7 @@ const { createApp } = Vue
         filtroCheck:[],
         filtrados: [],
         valorBusqueda: "",
+        sinRegistros:""
       }
     },
 
@@ -19,7 +20,8 @@ const { createApp } = Vue
                 this.eventos=data.events
                 this.eventosPasados=this.eventos.filter(evento => data.currentDate>evento.date)
                 this.filtrados=this.eventosPasados
-                this.categorias= Array.from(new Set(this.eventosPasados.map(evento => evento.category)))    
+                this.categorias= Array.from(new Set(this.eventosPasados.map(evento => evento.category)))  
+                this.sinRegistros="No information was found under those search criteria"  
             })
             .catch(err => err)
     },
